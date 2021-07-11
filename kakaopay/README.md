@@ -5,6 +5,9 @@
 요청 성공 : 0000
 그외에 값을 요청 실패
 
+프레임워크 : String boot
+DB : mysql
+테이블 스크립트 : table_script.txt
 
 test case
 결재요청
