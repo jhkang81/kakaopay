@@ -1,0 +1,27 @@
+DROP TABLE tbl_payment_his;
+CREATE TABLE tbl_payment_his (
+    uid char(20) NOT NULL,
+    card_no varchar(16) NOT NULL,
+    mmyy char(4) NOT NULL,
+    cvc int(3) NOT NULL,
+    installment char(2) NOT NULL DEFAULT '00',
+    payment int(10) NOT NULL,
+    vat int(10),
+    p_uid char(20),
+    card_enc varchar(100) NOT NULL,
+    string_data VARCHAR(450) NOT NULL,
+    gubun CHAR(7) NOT NULL,
+    reg_date char(8) NOT NULL,
+    reg_time CHAR(7) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE tbl_payment;
+CREATE TABLE tbl_payment (
+    uid char(20) NOT NULL,
+    payment int(10) NOT NULL,
+    vat int(10) NOT NULL,
+    reg_date char(8) NOT NULL,
+    reg_time CHAR(7) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

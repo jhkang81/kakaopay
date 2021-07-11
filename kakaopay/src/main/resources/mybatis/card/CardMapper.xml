@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakao.pay.mapper.CardMapper">
+	<sql id="tblPaymentHisCol">
+		uid
+    	, card_no
+    	, mmyy
+    	, cvc
+    	, installment
+    	, payment
+    	, vat
+    	, p_uid
+    	, card_enc
+    	, string_data
+    	, gubun
+    	, reg_date
+    	, reg_time
+	</sql>
+	<sql id="tblPaymentCol">
+		uid
+    	, payment
+    	, vat
+    	, reg_date
+    	, reg_time
+	</sql>
+	
+	<select id="selectTest" resultType="com.kakao.pay.vo.CardVo"> 
+		SELECT id, name from admin_user
+	</select>
+	
+	<insert id="regCardPaymentHst" parameterType="com.kakao.pay.vo.CardVo">
+		INSERT INTO tbl_payment_his(
+			<include refid="tblPaymentHisCol"/>
+		)
+		VALUES (
+			#{uid}
+    		, #{cardNo}
+    		, #{mmyy}
+    		, #{cvc}
+    		, IFNULL(#{installment},'00')
+    		, #{payment}
+    		, #{vat}
+    		, #{pUid}
+    		, #{cardEnc}
+    		, #{stringData}
+    		, #{gubun}
+    		, DATE_FORMAT(now(), '%Y%m%d')
+    		, DATE_FORMAT(now(), '%H%i%s')
+		)
+	</insert>
+	<insert id="regCardPayment" parameterType="com.kakao.pay.vo.CardVo">
+		INSERT INTO tbl_payment(
+			<include refid="tblPaymentCol"/>
+		)
+		VALUES (
+			#{uid}
+    		, #{payment}
+    		, #{vat}
+    		, DATE_FORMAT(now(), '%Y%m%d')
+    		, DATE_FORMAT(now(), '%H%i%s')
+		)
+	</insert>
+	<update id="updatCardPayment" parameterType="com.kakao.pay.vo.CardVo">
+		update 
+			tbl_payment
+			set 
+				payment = #{payment}
+				, vat = #{vat}
+    			, reg_date = DATE_FORMAT(now(), '%Y%m%d')
+    			, reg_time = DATE_FORMAT(now(), '%H%i%s')
+			where uid = #{pUid}
+	</update>
+	
+	<select id="getPaymentHis" parameterType="com.kakao.pay.vo.CardVo" resultType="com.kakao.pay.vo.CardVo"> 
+		SELECT 
+			a.uid
+    		, a.card_no cardNo
+    		, a.mmyy
+    		, a.cvc
+    		, a.installment
+    		, b.payment
+    		, b.vat
+    		, a.p_uid pUid
+    		, a.card_enc cardEnc
+		FROM
+			tbl_payment_his a, tbl_payment b 
+		where
+		a.uid = b.uid
+		and	a.uid = #{pUid}
+	</select>
+	
+	<select id="getPaymentHisOne" parameterType="com.kakao.pay.vo.CardVo" resultType="com.kakao.pay.vo.CardVo"> 
+		SELECT 
+			uid
+    		, card_no cardNo
+    		, mmyy
+    		, cvc
+    		, installment
+    		, payment
+    		, vat
+    		, p_uid pUid
+    		, card_enc cardEnc
+    		, string_data stringData
+    		, gubun
+		FROM
+			tbl_payment_his 
+		where uid = #{uid}
+	</select>
+</mapper>
