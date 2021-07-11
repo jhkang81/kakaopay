@@ -5,14 +5,14 @@
 요청 성공 : 0000
 그외에 값을 요청 실패
 
-프레임워크 : String boot
-DB : mysql
-테이블 스크립트 : table_script.txt
+- 프레임워크 : String boot
+- DB : mysql
+- 테이블 스크립트 : table_script.txt
 
-test case
-결재요청
-http://127.0.0.1/card/setPaying?cardNo=1234567890123456&payment=11000&mmyy=09&cvc=123&installment=0
-결재 부분, 전체취소
-http://localhost/card/setCancel?uid=[결제요청UID]&payment=1100&vat=100
-결제 요청 정보
-http://localhost/card/getPayment?uid=[응답UID]
+- test case
+- 결재요청
+ : http://127.0.0.1/card/setPaying?cardNo=1234567890123456&payment=11000&mmyy=09&cvc=123&installment=0
+- 결재 부분, 전체취소
+ : http://localhost/card/setCancel?uid=[결제요청UID]&payment=1100&vat=100
+- 결제 요청 정보
+ : http://localhost/card/getPayment?uid=[응답UID]
